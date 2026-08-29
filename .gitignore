@@ -1,10 +1,9 @@
 # Исполняемые файлы
-bin/
-dist/
-
-# Бинарники
-vacancy-radar
-vacancy-radar.exe
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
 
 # Файлы конфигурации и секреты
 .env
