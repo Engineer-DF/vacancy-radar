@@ -1,7 +1,7 @@
 package user
 
 type User struct {
-	Id int64 // ID пользователя в Telegram
+	ID int64 // ID пользователя в Telegram
 }
 
 // TODO: Добавить больше фильтров в будущем для более точечного поиска.

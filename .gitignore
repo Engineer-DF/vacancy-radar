@@ -10,15 +10,11 @@
 *.env
 config.yaml
 !config.example.yaml
+migrations
 
 # Логи и временные файлы
 *.log
-tmp/
-
-# Тесты и покрытие
-*.test
-*.out
-coverage.txt
+out
 
 # Настройки IDE
 .idea/
