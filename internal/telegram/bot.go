@@ -3,6 +3,7 @@ package telegram
 import (
 	"log"
 
+	"github.com/Engineer-DF/vacancy-radar/internal/vacancy/client"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
@@ -26,13 +27,37 @@ func StartBot(token string) error {
 			continue
 		}
 
-		log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
+		if update.Message.IsCommand() {
+			command := update.Message.Command()
 
-		msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Я принял ваше сообщение: "+update.Message.Text)
+			var replyText string
 
-		if _, err := bot.Send(msg); err != nil {
-			log.Printf("Ошибка отправки сообщения: %v", err)
+			switch command {
+			case "start":
+				replyText = "Привет! Я бот, предназначенный для удобного поиска вакансий по заданным фильтрам! Чтобы получить инструкцию " +
+					"введите команду /help"
+			case "test":
+				go func() {
+					err := client.PrototypeAPIRequest()
+					if err != nil {
+						log.Printf("Error request to API hh.ru: %v", err)
+						return
+					}
+				}()
+				replyText = "Смотри что тебе в терминале накидало, а не сюда."
+			default:
+				replyText = "Не знаю такого. Воспользуйтесь /help чтобы вывести список доступных команд."
+			}
+
+			msg := tgbotapi.NewMessage(update.Message.Chat.ID, replyText)
+
+			msg.ReplyToMessageID = update.Message.MessageID
+
+			if _, err := bot.Send(msg); err != nil {
+				log.Printf("Ошибка отправки сообщения: %v", err)
+			}
 		}
+
 	}
 	return nil
 }

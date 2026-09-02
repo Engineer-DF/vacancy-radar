@@ -7,6 +7,7 @@ import (
 
 	"github.com/Engineer-DF/vacancy-radar/internal/telegram"
 	"github.com/caarlos0/env/v11"
+	"github.com/joho/godotenv"
 )
 
 type Config struct {
@@ -18,6 +19,11 @@ type Config struct {
 }
 
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatalf("Error loading .env file")
+	}
+
 	var cfg Config
 	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
 
@@ -28,6 +34,7 @@ func main() {
 	logger.Info("Configuration loaded successfully.")
 
 	telegram.StartBot(cfg.TelegramToken)
+
 	// TODO: добавить дальнейший процесс запуска
 	// Убрать говнокод
 }

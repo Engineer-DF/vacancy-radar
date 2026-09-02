@@ -48,3 +48,6 @@ migrate-action:
 		-path /migrations \
 		-database postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@vr-postgres:5432/${POSTGRES_DB}?sslmode=disable \
 		"$(action)"
+
+vr-run:
+	@go run cmd/vacancy-radar/main.go
