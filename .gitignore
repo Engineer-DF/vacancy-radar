@@ -1,25 +1,20 @@
 # Исполняемые файлы
-bin/
-dist/
-
-# Бинарники
-vacancy-radar
-vacancy-radar.exe
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
 
 # Файлы конфигурации и секреты
 .env
 *.env
 config.yaml
 !config.example.yaml
+migrations
 
 # Логи и временные файлы
 *.log
-tmp/
-
-# Тесты и покрытие
-*.test
-*.out
-coverage.txt
+out
 
 # Настройки IDE
 .idea/
