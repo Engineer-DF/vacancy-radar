@@ -36,9 +36,11 @@ func StartBot(token string) error {
 			case "start":
 				replyText = "Привет! Я бот, предназначенный для удобного поиска вакансий по заданным фильтрам! Чтобы получить инструкцию " +
 					"введите команду /help"
+			case "help":
+				replyText = "Список доступных команд:\n/start\n/test\n\nа большего и не жди, сынку"
 			case "test":
 				go func() {
-					err := client.PrototypeAPIRequest()
+					err := client.PrototypeRodRequest()
 					if err != nil {
 						log.Printf("Error request to API hh.ru: %v", err)
 						return
