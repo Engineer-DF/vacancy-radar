@@ -1,13 +1,15 @@
 package telegram
 
 import (
+	"context"
 	"log"
+	"log/slog"
 
 	"github.com/Engineer-DF/vacancy-radar/internal/vacancy/client"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
-func StartBot(token string) error {
+func StartBot(ctx context.Context, logger slog.Logger, token string) error {
 	bot, err := tgbotapi.NewBotAPI(token)
 	if err != nil {
 		return err
@@ -40,7 +42,7 @@ func StartBot(token string) error {
 				replyText = "Список доступных команд:\n/start\n/test\n\nа большего и не жди, сынку"
 			case "test":
 				go func() {
-					err := client.PrototypeRodRequest()
+					err := client.New(logger).ScrapeData(ctx)
 					if err != nil {
 						log.Printf("Error request to API hh.ru: %v", err)
 						return
